@@ -1,0 +1,27 @@
+{
+  "folders": [
+    { "name": "Core", "path": "." },
+    { "name": "Mentor", "path": "../mathtrail-mentor" },
+    { "name": "UI Web", "path": "../mathtrail-ui-web" },
+    { "name": "UI ChatGPT", "path": "../mathtrail-ui-chatgpt" },
+    { "name": "Infrastructure", "path": "../mathtrail-infrastructure" },
+    { "name": "Observability", "path": "../mathtrail-infrastructure-observability" }
+  ],
+  "settings": {
+    "editor.formatOnSave": true,
+    "files.exclude": {
+      "**/.DS_Store": true,
+      "**/node_modules": true,
+      "**/dist": true
+    }
+  },
+  "extensions": {
+    "recommendations": [
+      "golang.go",
+      "ms-azuretools.vscode-docker",
+      "ms-vscode-remote.remote-containers",
+      "ms-python.python",
+      "esbenp.prettier-vscode"
+    ]
+  }
+}
