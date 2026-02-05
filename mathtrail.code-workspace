@@ -5,7 +5,8 @@
     { "name": "UI Web", "path": "../mathtrail-ui-web" },
     { "name": "UI ChatGPT", "path": "../mathtrail-ui-chatgpt" },
     { "name": "Infrastructure", "path": "../mathtrail-infrastructure" },
-    { "name": "Observability", "path": "../mathtrail-infrastructure-observability" }
+    { "name": "Observability", "path": "../mathtrail-infrastructure-observability" },
+    { "name": "K3d", "path": "../mathtrail-infrastructure-local-k3d" }
   ],
   "settings": {
     "editor.formatOnSave": true,
