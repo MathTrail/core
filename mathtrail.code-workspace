@@ -10,8 +10,8 @@
     { "name": "UI ChatGPT", "path": "../mathtrail-ui-chatgpt" },
     { "name": "Identity", "path": "../mathtrail-identity" },
     { "name": "Infrastructure", "path": "../mathtrail-infra" },
+    { "name": "Local Infrastructure", "path": "../mathtrail-infra-local" },
     { "name": "Observability", "path": "../mathtrail-infra-observability" },
-    { "name": "K3d", "path": "../mathtrail-infra-local-k3d" },
     { "name": "Charts", "path": "../mathtrail-charts" },
     { "name": "Service Template", "path": "../mathtrail-service-template" }
   ],
