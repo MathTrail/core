@@ -65,11 +65,18 @@ Clone the workspace and all related repositories next to each other:
 cd ~/MathTrail
 git clone <URL_REPO>/mathtrail.git
 git clone <URL_REPO>/mathtrail-mentor.git
+git clone <URL_REPO>/mathtrail-profile.git
+git clone <URL_REPO>/mathtrail-task.git
+git clone <URL_REPO>/mathtrail-llm-taskgen.git
+git clone <URL_REPO>/mathtrail-solution-validator.git
 git clone <URL_REPO>/mathtrail-ui-web.git
 git clone <URL_REPO>/mathtrail-ui-chatgpt.git
-git clone <URL_REPO>/mathtrail-infrastructure.git
-git clone <URL_REPO>/mathtrail-infrastructure-local-k3d
-git clone <URL_REPO>/mathtrail-infrastructure-observability.git
+git clone <URL_REPO>/mathtrail-identity.git
+git clone <URL_REPO>/mathtrail-infra.git
+git clone <URL_REPO>/mathtrail-infra-observability.git
+git clone <URL_REPO>/mathtrail-infra-local-k3d.git
+git clone <URL_REPO>/mathtrail-charts.git
+git clone <URL_REPO>/mathtrail-service-template.git
 ```
 
 ### 2. Open Workspace

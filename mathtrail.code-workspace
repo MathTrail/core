@@ -2,11 +2,18 @@
   "folders": [
     { "name": "Core", "path": "." },
     { "name": "Mentor", "path": "../mathtrail-mentor" },
+    { "name": "Profile Service", "path": "../mathtrail-profile" },
+    { "name": "Task Service", "path": "../mathtrail-task" },
+    { "name": "LLM Task Generator", "path": "../mathtrail-llm-taskgen" },
+    { "name": "Solution Validator", "path": "../mathtrail-solution-validator" },
     { "name": "UI Web", "path": "../mathtrail-ui-web" },
     { "name": "UI ChatGPT", "path": "../mathtrail-ui-chatgpt" },
-    { "name": "Infrastructure", "path": "../mathtrail-infrastructure" },
-    { "name": "Observability", "path": "../mathtrail-infrastructure-observability" },
-    { "name": "K3d", "path": "../mathtrail-infrastructure-local-k3d" }
+    { "name": "Identity", "path": "../mathtrail-identity" },
+    { "name": "Infrastructure", "path": "../mathtrail-infra" },
+    { "name": "Observability", "path": "../mathtrail-infra-observability" },
+    { "name": "K3d", "path": "../mathtrail-infra-local-k3d" },
+    { "name": "Charts", "path": "../mathtrail-charts" },
+    { "name": "Service Template", "path": "../mathtrail-service-template" }
   ],
   "settings": {
     "editor.formatOnSave": true,
