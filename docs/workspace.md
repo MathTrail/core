@@ -76,6 +76,7 @@ git clone <URL_REPO>/mathtrail-infra.git
 git clone <URL_REPO>/mathtrail-infra-observability.git
 git clone <URL_REPO>/mathtrail-infra-local.git
 git clone <URL_REPO>/mathtrail-infra-local-k3d.git
+git clone <URL_REPO>/mathtrail-infra-testing.git
 git clone <URL_REPO>/mathtrail-charts.git
 git clone <URL_REPO>/mathtrail-service-template.git
 ```

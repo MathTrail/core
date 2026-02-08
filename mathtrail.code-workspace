@@ -13,6 +13,7 @@
     { "name": "Local Infrastructure", "path": "../mathtrail-infra-local" },
     { "name": "K3s", "path": "../mathtrail-infra-local-k3s" },
     { "name": "Observability", "path": "../mathtrail-infra-observability" },
+    { "name": "Testing Infrastructure", "path": "../mathtrail-infra-testing" },
     { "name": "Charts", "path": "../mathtrail-charts" },
     { "name": "Service Template", "path": "../mathtrail-service-template" }
   ],
