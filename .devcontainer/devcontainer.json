@@ -31,5 +31,6 @@
                 "anthropic.claude-code"
             ]
         }
-    }
+    },
+    "postCreateCommand": "bash .devcontainer/post-create.sh"
 }
