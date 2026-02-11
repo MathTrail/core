@@ -1,0 +1,68 @@
+apiVersion: skaffold/v4beta12
+kind: Config
+metadata:
+  name: mathtrail
+
+# Default: deploy everything
+requires:
+  - path: ../mathtrail-infra
+  - path: ../mathtrail-infra-local
+  - path: ../mathtrail-infra-testing
+  - path: ../mathtrail-mentor
+  - path: ../mathtrail-profile
+
+profiles:
+  # ── Infrastructure ───────────────────────────────────────────
+  - name: infra
+    patches:
+      - op: replace
+        path: /requires
+        value:
+          - path: ../mathtrail-infra
+
+  - name: infra-local
+    patches:
+      - op: replace
+        path: /requires
+        value:
+          - path: ../mathtrail-infra-local
+
+  - name: infra-testing
+    patches:
+      - op: replace
+        path: /requires
+        value:
+          - path: ../mathtrail-infra-testing
+
+  # ── Services ─────────────────────────────────────────────────
+  - name: mentor
+    patches:
+      - op: replace
+        path: /requires
+        value:
+          - path: ../mathtrail-mentor
+
+  - name: profile
+    patches:
+      - op: replace
+        path: /requires
+        value:
+          - path: ../mathtrail-profile
+
+  # ── Combined ─────────────────────────────────────────────────
+  - name: all-infra
+    patches:
+      - op: replace
+        path: /requires
+        value:
+          - path: ../mathtrail-infra
+          - path: ../mathtrail-infra-local
+          - path: ../mathtrail-infra-testing
+
+  - name: all-services
+    patches:
+      - op: replace
+        path: /requires
+        value:
+          - path: ../mathtrail-mentor
+          - path: ../mathtrail-profile
