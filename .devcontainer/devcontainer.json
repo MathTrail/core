@@ -3,6 +3,8 @@
     "build": {
         "dockerfile": "Dockerfile"
     },
+    "workspaceMount": "source=${localWorkspaceFolder}/..,target=/workspaces,type=bind,consistency=cached",
+    "workspaceFolder": "/workspaces/mathtrail",
     "features": {
         "ghcr.io/devcontainers/features/kubectl-helm-minikube:1.2.2": {
             "helm": "3.14.0",
