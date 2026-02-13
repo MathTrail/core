@@ -18,6 +18,10 @@ requires:
       path: skaffold.yaml
       ref: main
   - git:
+      repo: https://github.com/RyazanovAlexander/mathtrail-identity
+      path: skaffold.yaml
+      ref: main
+  - git:
       repo: https://github.com/RyazanovAlexander/mathtrail-mentor
       path: skaffold.yaml
       ref: main
@@ -69,6 +73,16 @@ profiles:
               path: skaffold.yaml
               ref: main
 
+  - name: identity
+    patches:
+      - op: replace
+        path: /requires
+        value:
+          - git:
+              repo: https://github.com/RyazanovAlexander/mathtrail-identity
+              path: skaffold.yaml
+              ref: main
+
   - name: profile
     patches:
       - op: replace
@@ -103,6 +117,10 @@ profiles:
       - op: replace
         path: /requires
         value:
+          - git:
+              repo: https://github.com/RyazanovAlexander/mathtrail-identity
+              path: skaffold.yaml
+              ref: main
           - git:
               repo: https://github.com/RyazanovAlexander/mathtrail-mentor
               path: skaffold.yaml

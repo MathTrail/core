@@ -8,6 +8,7 @@ requires:
   - path: ../mathtrail-infra
   - path: ../mathtrail-infra-local
   - path: ../mathtrail-infra-testing
+  - path: ../mathtrail-identity
   - path: ../mathtrail-mentor
   - path: ../mathtrail-profile
 
@@ -42,6 +43,13 @@ profiles:
         value:
           - path: ../mathtrail-mentor
 
+  - name: identity
+    patches:
+      - op: replace
+        path: /requires
+        value:
+          - path: ../mathtrail-identity
+
   - name: profile
     patches:
       - op: replace
@@ -64,5 +72,6 @@ profiles:
       - op: replace
         path: /requires
         value:
+          - path: ../mathtrail-identity
           - path: ../mathtrail-mentor
           - path: ../mathtrail-profile
