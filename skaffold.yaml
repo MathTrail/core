@@ -8,6 +8,7 @@ requires:
   - path: ../mathtrail-infra
   - path: ../mathtrail-infra-local
   - path: ../mathtrail-infra-testing
+  - path: ../mathtrail-infra-chaos
   - path: ../mathtrail-identity
   - path: ../mathtrail-mentor
   - path: ../mathtrail-profile
@@ -34,6 +35,13 @@ profiles:
         path: /requires
         value:
           - path: ../mathtrail-infra-testing
+
+  - name: infra-chaos
+    patches:
+      - op: replace
+        path: /requires
+        value:
+          - path: ../mathtrail-infra-chaos
 
   # ── Services ─────────────────────────────────────────────────
   - name: mentor
@@ -66,6 +74,7 @@ profiles:
           - path: ../mathtrail-infra
           - path: ../mathtrail-infra-local
           - path: ../mathtrail-infra-testing
+          - path: ../mathtrail-infra-chaos
 
   - name: all-services
     patches:

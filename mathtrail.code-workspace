@@ -15,7 +15,8 @@
     { "name": "Observability", "path": "../mathtrail-infra-observability" },
     { "name": "Testing Infrastructure", "path": "../mathtrail-infra-testing" },
     { "name": "Charts", "path": "../mathtrail-charts" },
-    { "name": "Service Template", "path": "../mathtrail-service-template" }
+    { "name": "Service Template", "path": "../mathtrail-service-template" },
+    { "name": "GitOps", "path": "../mathtrail-gitops" }
   ],
   "settings": {
     "editor.formatOnSave": true,

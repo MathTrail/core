@@ -1,0 +1,28 @@
+# Identity & Context
+You are working in the MathTrail root workspace — the central orchestrator for a 16-repo microservice ecosystem.
+This repo contains: Skaffold orchestrator (skaffold.yaml, skaffold.remote.yaml), documentation (docs/), architecture diagrams (diagrams/), and VS Code workspace config.
+It does NOT contain application code. It coordinates deployments of all child services.
+
+Tech Stack: Skaffold v4beta12, Helm, Just, Markdown
+Infra: No infra/ in this repo — infrastructure lives in dedicated repos (mathtrail-infra, mathtrail-infra-local, etc.)
+
+# Communication Map
+This repo orchestrates all services via Skaffold `requires` directive.
+Key children: mathtrail-infra, mathtrail-infra-local, mathtrail-profile, mathtrail-mentor, mathtrail-task, mathtrail-identity.
+No direct Dapr communication — this is a coordination layer.
+No secrets required.
+
+# Development Standards
+- Documentation must be kept in sync with child repos
+- Skaffold profiles use JSON Patch (op: replace) — `requires` is NOT allowed inside profiles
+- All child configs are referenced via `requires` at top level, swapped via profile patches
+- Use relative paths (../mathtrail-*/) for cross-repo references
+
+# Commit Convention
+Use Conventional Commits: feat(workspace):, fix(workspace):, docs(workspace):, chore(workspace):
+Scope is always "workspace". Example: docs(workspace): update project structure table
+
+# Testing Strategy
+No application tests in this repo.
+Verify Skaffold configs: `skaffold diagnose`
+Verify docs: manual review of links and accuracy
