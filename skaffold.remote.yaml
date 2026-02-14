@@ -6,27 +6,27 @@ metadata:
 # Default: deploy everything
 requires:
   - git:
-      repo: https://github.com/MathTrail/mathtrail-infra
+      repo: https://github.com/MathTrail/infra
       path: skaffold.yaml
       ref: main
   - git:
-      repo: https://github.com/MathTrail/mathtrail-infra-local
+      repo: https://github.com/MathTrail/infra-local
       path: skaffold.yaml
       ref: main
   - git:
-      repo: https://github.com/MathTrail/mathtrail-infra-testing
+      repo: https://github.com/MathTrail/infra-testing
       path: skaffold.yaml
       ref: main
   - git:
-      repo: https://github.com/MathTrail/mathtrail-identity
+      repo: https://github.com/MathTrail/identity-api
       path: skaffold.yaml
       ref: main
   - git:
-      repo: https://github.com/MathTrail/mathtrail-mentor
+      repo: https://github.com/MathTrail/mentor-api
       path: skaffold.yaml
       ref: main
   - git:
-      repo: https://github.com/MathTrail/mathtrail-profile
+      repo: https://github.com/MathTrail/profile-api
       path: skaffold.yaml
       ref: main
 
@@ -38,7 +38,7 @@ profiles:
         path: /requires
         value:
           - git:
-              repo: https://github.com/MathTrail/mathtrail-infra
+              repo: https://github.com/MathTrail/infra
               path: skaffold.yaml
               ref: main
 
@@ -48,7 +48,7 @@ profiles:
         path: /requires
         value:
           - git:
-              repo: https://github.com/MathTrail/mathtrail-infra-local
+              repo: https://github.com/MathTrail/infra-local
               path: skaffold.yaml
               ref: main
 
@@ -58,7 +58,7 @@ profiles:
         path: /requires
         value:
           - git:
-              repo: https://github.com/MathTrail/mathtrail-infra-testing
+              repo: https://github.com/MathTrail/infra-testing
               path: skaffold.yaml
               ref: main
 
@@ -69,7 +69,7 @@ profiles:
         path: /requires
         value:
           - git:
-              repo: https://github.com/MathTrail/mathtrail-mentor
+              repo: https://github.com/MathTrail/mentor-api
               path: skaffold.yaml
               ref: main
 
@@ -79,7 +79,7 @@ profiles:
         path: /requires
         value:
           - git:
-              repo: https://github.com/MathTrail/mathtrail-identity
+              repo: https://github.com/MathTrail/identity-api
               path: skaffold.yaml
               ref: main
 
@@ -89,7 +89,7 @@ profiles:
         path: /requires
         value:
           - git:
-              repo: https://github.com/MathTrail/mathtrail-profile
+              repo: https://github.com/MathTrail/profile-api
               path: skaffold.yaml
               ref: main
 
@@ -100,15 +100,15 @@ profiles:
         path: /requires
         value:
           - git:
-              repo: https://github.com/MathTrail/mathtrail-infra
+              repo: https://github.com/MathTrail/infra
               path: skaffold.yaml
               ref: main
           - git:
-              repo: https://github.com/MathTrail/mathtrail-infra-local
+              repo: https://github.com/MathTrail/infra-local
               path: skaffold.yaml
               ref: main
           - git:
-              repo: https://github.com/MathTrail/mathtrail-infra-testing
+              repo: https://github.com/MathTrail/infra-testing
               path: skaffold.yaml
               ref: main
 
@@ -118,15 +118,15 @@ profiles:
         path: /requires
         value:
           - git:
-              repo: https://github.com/MathTrail/mathtrail-identity
+              repo: https://github.com/MathTrail/identity-api
               path: skaffold.yaml
               ref: main
           - git:
-              repo: https://github.com/MathTrail/mathtrail-mentor
+              repo: https://github.com/MathTrail/mentor-api
               path: skaffold.yaml
               ref: main
           - git:
-              repo: https://github.com/MathTrail/mathtrail-profile
+              repo: https://github.com/MathTrail/profile-api
               path: skaffold.yaml
               ref: main
 
