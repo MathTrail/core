@@ -1,0 +1,39 @@
+{
+  "folders": [
+    { "name": "Core", "path": "." },
+    { "name": "Mentor API", "path": "../mentor-api" },
+    { "name": "Profile API", "path": "../profile-api" },
+    { "name": "Task API", "path": "../task-api" },
+    { "name": "LLM Task Generator", "path": "../llm-taskgen" },
+    { "name": "Solution Validator", "path": "../solution-validator" },
+    { "name": "UI Web", "path": "../ui-web" },
+    { "name": "UI ChatGPT", "path": "../ui-chatgpt" },
+    { "name": "Identity API", "path": "../identity-api" },
+    { "name": "Infra", "path": "../infra" },
+    { "name": "Infra Local", "path": "../infra-local" },
+    { "name": "Infra Local K3s", "path": "../infra-local-k3s" },
+    { "name": "Infra Observability", "path": "../infra-observability" },
+    { "name": "Infra Testing", "path": "../infra-testing" },
+    { "name": "Infra Chaos", "path": "../infra-chaos" },
+    { "name": "Charts", "path": "../charts" },
+    { "name": "Service Template", "path": "../service-template" },
+    { "name": "GitOps", "path": "../gitops" }
+  ],
+  "settings": {
+    "editor.formatOnSave": true,
+    "files.exclude": {
+      "**/.DS_Store": true,
+      "**/node_modules": true,
+      "**/dist": true
+    }
+  },
+  "extensions": {
+    "recommendations": [
+      "golang.go",
+      "ms-azuretools.vscode-docker",
+      "ms-vscode-remote.remote-containers",
+      "ms-python.python",
+      "esbenp.prettier-vscode"
+    ]
+  }
+}
