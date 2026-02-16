@@ -7,6 +7,7 @@ metadata:
 requires:
   - path: ../mathtrail-infra
   - path: ../mathtrail-infra-local
+  - path: ../mathtrail-infra-observability
   - path: ../mathtrail-infra-testing
   - path: ../mathtrail-infra-chaos
   - path: ../mathtrail-identity
@@ -43,6 +44,13 @@ profiles:
         value:
           - path: ../mathtrail-infra-chaos
 
+  - name: infra-observability
+    patches:
+      - op: replace
+        path: /requires
+        value:
+          - path: ../mathtrail-infra-observability
+
   # ── Services ─────────────────────────────────────────────────
   - name: mentor
     patches:
@@ -73,6 +81,7 @@ profiles:
         value:
           - path: ../mathtrail-infra
           - path: ../mathtrail-infra-local
+          - path: ../mathtrail-infra-observability
           - path: ../mathtrail-infra-testing
           - path: ../mathtrail-infra-chaos
 
