@@ -5,91 +5,110 @@ metadata:
 
 # Default: deploy everything
 requires:
+  - configs:
+      - all-infra
+      - all-services
+
+---
+# ── Aggregate modules ─────────────────────────────────────────
+
+apiVersion: skaffold/v4beta13
+kind: Config
+metadata:
+  name: all-infra
+
+requires:
+  - configs:
+      - infra
+      - infra-local
+      - infra-observability
+      - infra-testing
+      - infra-chaos
+
+---
+apiVersion: skaffold/v4beta13
+kind: Config
+metadata:
+  name: all-services
+
+requires:
+  - configs:
+      - identity
+      - mentor
+      - profile
+
+---
+# ── Infrastructure ────────────────────────────────────────────
+
+apiVersion: skaffold/v4beta13
+kind: Config
+metadata:
+  name: infra
+
+requires:
   - path: ../mathtrail-infra
+
+---
+apiVersion: skaffold/v4beta13
+kind: Config
+metadata:
+  name: infra-local
+
+requires:
   - path: ../mathtrail-infra-local
+
+---
+apiVersion: skaffold/v4beta13
+kind: Config
+metadata:
+  name: infra-observability
+
+requires:
   - path: ../mathtrail-infra-observability
+
+---
+apiVersion: skaffold/v4beta13
+kind: Config
+metadata:
+  name: infra-testing
+
+requires:
   - path: ../mathtrail-infra-testing
+
+---
+apiVersion: skaffold/v4beta13
+kind: Config
+metadata:
+  name: infra-chaos
+
+requires:
   - path: ../mathtrail-infra-chaos
+
+---
+# ── Services ──────────────────────────────────────────────────
+
+apiVersion: skaffold/v4beta13
+kind: Config
+metadata:
+  name: identity
+
+requires:
   - path: ../mathtrail-identity
+
+---
+apiVersion: skaffold/v4beta13
+kind: Config
+metadata:
+  name: mentor
+
+requires:
   - path: ../mathtrail-mentor
+
+---
+apiVersion: skaffold/v4beta13
+kind: Config
+metadata:
+  name: profile
+
+requires:
   - path: ../mathtrail-profile
-
-profiles:
-  # ── Infrastructure ───────────────────────────────────────────
-  - name: infra
-    patches:
-      - op: replace
-        path: /requires
-        value:
-          - path: ../mathtrail-infra
-
-  - name: infra-local
-    patches:
-      - op: replace
-        path: /requires
-        value:
-          - path: ../mathtrail-infra-local
-
-  - name: infra-testing
-    patches:
-      - op: replace
-        path: /requires
-        value:
-          - path: ../mathtrail-infra-testing
-
-  - name: infra-chaos
-    patches:
-      - op: replace
-        path: /requires
-        value:
-          - path: ../mathtrail-infra-chaos
-
-  - name: infra-observability
-    patches:
-      - op: replace
-        path: /requires
-        value:
-          - path: ../mathtrail-infra-observability
-
-  # ── Services ─────────────────────────────────────────────────
-  - name: mentor
-    patches:
-      - op: replace
-        path: /requires
-        value:
-          - path: ../mathtrail-mentor
-
-  - name: identity
-    patches:
-      - op: replace
-        path: /requires
-        value:
-          - path: ../mathtrail-identity
-
-  - name: profile
-    patches:
-      - op: replace
-        path: /requires
-        value:
-          - path: ../mathtrail-profile
-
-  # ── Combined ─────────────────────────────────────────────────
-  - name: all-infra
-    patches:
-      - op: replace
-        path: /requires
-        value:
-          - path: ../mathtrail-infra
-          - path: ../mathtrail-infra-local
-          - path: ../mathtrail-infra-observability
-          - path: ../mathtrail-infra-testing
-          - path: ../mathtrail-infra-chaos
-
-  - name: all-services
-    patches:
-      - op: replace
-        path: /requires
-        value:
-          - path: ../mathtrail-identity
-          - path: ../mathtrail-mentor
-          - path: ../mathtrail-profile
