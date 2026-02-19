@@ -1,8 +1,10 @@
 # MathTrail Root Orchestrator
 
 set shell := ["bash", "-c"]
+set dotenv-load := true
+set dotenv-path := env("HOME") + "/.env.shared"
 
-NAMESPACE := "mathtrail"
+NAMESPACE := env_var("NAMESPACE")
 
 # ── Full Stack (no profile = deploy all) ─────────────────────
 
