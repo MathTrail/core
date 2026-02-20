@@ -1,0 +1,11 @@
+# Kubernetes cluster configuration
+namespace: "mathtrail"
+cluster_name: "k3d-mathtrail-dev"
+
+# Docker registry configuration
+registry: "k3d-mathtrail-registry.localhost:5050"
+registry_cluster: "k3d-mathtrail-registry:5000"
+
+# GitHub and repository configuration
+github_org: "MathTrail"
+charts_repo_root: "https://MathTrail.github.io/charts"

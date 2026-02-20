@@ -8,3 +8,6 @@ Thumbs.db
 
 # Logs
 *.log
+
+# Skaffold
+skaffold.env
