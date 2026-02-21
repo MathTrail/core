@@ -1,0 +1,15 @@
+name: 'Setup MathTrail Environment'
+description: 'Extracts platform variables from Docker image and loads them into GITHUB_ENV'
+
+runs:
+  using: "composite"
+  steps:
+    - name: Log in to GHCR
+      shell: bash
+      run: |
+        echo "${{ github.token }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+    - name: Load Variables
+      shell: bash
+      run: |
+        docker run --rm ghcr.io/mathtrail/platform-env:1 cat /config/global.env >> $GITHUB_ENV
