@@ -1,5 +1,7 @@
 name: 'MathTrail Setup Environment'
-description: 'Loads variables via git checkout'
+description: >
+  Loads platform constants into GITHUB_ENV via sparse-checkout. 
+  Designed to work on ARC (Kubernetes) runners without Docker daemon.
 
 inputs:
   version:
@@ -26,5 +28,9 @@ runs:
     - name: Load Variables
       shell: bash
       run: |
-        cat .temp-platform-core/platform-env/global.env >> $GITHUB_ENV
+        # Filter out comments and empty lines to prevent GitHub Actions formatting errors.
+        # Only lines matching KEY=VALUE will be appended to $GITHUB_ENV.
+        grep -E '^[^#].*=' .temp-platform-core/platform-env/global.env >> $GITHUB_ENV
+        
+        # Clean up the temporary directory
         rm -rf .temp-platform-core
