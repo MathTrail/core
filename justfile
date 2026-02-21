@@ -29,18 +29,26 @@ delete MODULE:
 
 # ── Versioning (composite actions) ───────────────────────────
 
-# Release a new version: just release patch|minor|major
-release BUMP:
+# Release core: just release-core patch|minor|major
+release-core BUMP: (_bump "v" BUMP "true")
+
+# Release platform-env: just release-platform-env patch|minor|major
+release-platform-env BUMP: (_bump "platform-env/v" BUMP)
+
+[private]
+_bump PREFIX BUMP FLOAT_MAJOR="false":
     #!/usr/bin/env bash
     set -euo pipefail
-    # Find latest vX.Y.Z tag
-    latest=$(git tag --list 'v[0-9]*.[0-9]*.[0-9]*' --sort=-v:refname | head -n1)
+    prefix="{{ PREFIX }}"
+    float_major="{{ FLOAT_MAJOR }}"
+    # Find latest tag matching prefix
+    latest=$(git tag --list "${prefix}[0-9]*.[0-9]*.[0-9]*" --sort=-v:refname | head -n1)
     if [[ -z "$latest" ]]; then
-        echo "No existing vX.Y.Z tag found — starting from v0.0.0"
-        latest="v0.0.0"
+        echo "No existing ${prefix}X.Y.Z tag found — starting from ${prefix}0.0.0"
+        latest="${prefix}0.0.0"
     fi
     # Parse version components
-    version="${latest#v}"
+    version="${latest#"$prefix"}"
     IFS='.' read -r major minor patch <<< "$version"
     case "{{ BUMP }}" in
         patch) patch=$((patch + 1)) ;;
@@ -48,10 +56,17 @@ release BUMP:
         major) major=$((major + 1)); minor=0; patch=0 ;;
         *) echo "Error: invalid bump type '{{ BUMP }}' (use patch, minor, or major)"; exit 1 ;;
     esac
-    new_tag="v${major}.${minor}.${patch}"
-    major_tag="v${major}"
-    echo "Bumping ${latest} → ${new_tag} (floating alias: ${major_tag})"
-    git tag "${new_tag}"
-    git tag -f "${major_tag}"
-    git push origin "${new_tag}" "${major_tag}" --force
-    echo "Done — created ${new_tag} and moved ${major_tag}"
+    new_tag="${prefix}${major}.${minor}.${patch}"
+    if [[ "$float_major" == "true" ]]; then
+        major_tag="${prefix}${major}"
+        echo "Bumping ${latest} → ${new_tag} (floating alias: ${major_tag})"
+        git tag "${new_tag}"
+        git tag -f "${major_tag}"
+        git push origin "${new_tag}" "${major_tag}" --force
+        echo "Done — created ${new_tag} and moved ${major_tag}"
+    else
+        echo "Bumping ${latest} → ${new_tag}"
+        git tag "${new_tag}"
+        git push origin "${new_tag}"
+        echo "Done — created ${new_tag}"
+    fi

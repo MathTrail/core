@@ -21,9 +21,9 @@ The action follows **major-tag aliasing**: a floating `v1` tag always points to 
 From the repo root, run:
 
 ```bash
-just release patch   # v1.0.0 → v1.0.1
-just release minor   # v1.0.1 → v1.1.0
-just release major   # v1.1.0 → v2.0.0
+just release-core patch   # v1.0.0 → v1.0.1
+just release-core minor   # v1.0.1 → v1.1.0
+just release-core major   # v1.1.0 → v2.0.0
 ```
 
 The recipe automatically:
@@ -52,13 +52,13 @@ git push origin v1.2.0 v1 --force
 ### Example: first release
 
 ```bash
-just release minor   # → v1.0.0
+just release-core minor   # → v1.0.0
 ```
 
 ### Example: subsequent release
 
 ```bash
-just release minor   # v1.0.0 → v1.1.0
+just release-core minor   # v1.0.0 → v1.1.0
 ```
 
 > **Why `--force`?** Git does not allow moving an existing tag without `-f` locally and `--force` on push. This is safe because `v1` is a well-known floating alias, not an immutable release.

@@ -20,12 +20,25 @@ Pushing a tag triggers the **Publish platform-env** GitHub Actions workflow, whi
 From the root of the Core repository:
 
 ```bash
+just release-platform-env patch   # platform-env/v1.0.0 → platform-env/v1.0.1
+just release-platform-env minor   # platform-env/v1.0.1 → platform-env/v1.1.0
+just release-platform-env major   # platform-env/v1.1.0 → platform-env/v2.0.0
+```
+
+The recipe automatically finds the latest `platform-env/vX.Y.Z` tag, bumps the requested component, creates the new tag, and pushes it to `origin`.
+
+<details>
+<summary>Manual steps (for reference)</summary>
+
+```bash
 # 1. Create a local tag
 git tag platform-env/v1.0.0
 
 # 2. Push the tag to GitHub
 git push origin platform-env/v1.0.0
 ```
+
+</details>
 
 ### What happens next
 
