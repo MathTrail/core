@@ -1,6 +1,13 @@
 name: 'MathTrail Setup Environment'
 description: 'Loads variables via git checkout'
 
+inputs:
+  version:
+    description: 'Version of the config to pull (tag or branch)'
+    required: false
+    # By default, we try to use the ref the action itself was called with
+    default: ${{ github.action_ref }}
+
 runs:
   using: "composite"
   steps:
@@ -8,9 +15,8 @@ runs:
       uses: actions/checkout@v4
       with:
         repository: MathTrail/core
-        # github.action_ref points to the tag or branch used to call this action (e.g., @v1 or @v1.2.3)
-        # This ensures the config file version matches the action version.
-        ref: ${{ github.action_ref }}
+        # We use the input version, which defaults to the action's own ref
+        ref: ${{ inputs.version }}
         path: .temp-platform-core
         sparse-checkout: |
           platform-env/global.env
