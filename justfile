@@ -2,7 +2,7 @@
 
 set shell := ["bash", "-c"]
 set dotenv-load
-set dotenv-path := "/etc/mathtrail/platform.env"
+set dotenv-path := "platform-env/global.env"
 set export
 
 NAMESPACE := env_var("NAMESPACE")
