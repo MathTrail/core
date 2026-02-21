@@ -6,7 +6,6 @@
     "workspaceMount": "source=${localWorkspaceFolder}/..,target=/workspaces,type=bind,consistency=cached",
     "workspaceFolder": "/workspaces/core",
     "features": {
-        "ghcr.io/prulloac/devcontainer-features/chezmoi:1": {},
         "ghcr.io/devcontainers/features/kubectl-helm-minikube:1.2.2": {
             "helm": "3.14.0",
             "version": "1.31.0",
@@ -18,8 +17,7 @@
         "source=${localEnv:HOME}${localEnv:USERPROFILE}/.kube,target=/home/vscode/.kube-host,type=bind,consistency=cached"
     ],
     "remoteEnv": {
-        "KUBECONFIG": "/home/vscode/.kube/k3d-mathtrail-dev.yaml",
-        "SKAFFOLD_DEFAULT_REPO": "k3d-mathtrail-registry.localhost:5050"
+        "KUBECONFIG": "/home/vscode/.kube/k3d-mathtrail-dev.yaml"
     },
     "customizations": {
         "vscode": {
