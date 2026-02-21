@@ -1,15 +1,24 @@
-name: 'Setup MathTrail Environment'
-description: 'Extracts platform variables from Docker image and loads them into GITHUB_ENV'
+name: 'MathTrail Setup Environment'
+description: 'Loads variables via git checkout'
 
 runs:
   using: "composite"
   steps:
-    - name: Log in to GHCR
-      shell: bash
-      run: |
-        echo "${{ github.token }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+    - name: Checkout Platform Config
+      uses: actions/checkout@v4
+      with:
+        repository: MathTrail/core
+        # github.action_ref points to the tag or branch used to call this action (e.g., @v1 or @v1.2.3)
+        # This ensures the config file version matches the action version.
+        ref: ${{ github.action_ref }}
+        path: .temp-platform-core
+        sparse-checkout: |
+          platform-env/global.env
+        sparse-checkout-cone-mode: false
+        token: ${{ github.token }}
 
     - name: Load Variables
       shell: bash
       run: |
-        docker run --rm ghcr.io/mathtrail/platform-env:1 cat /config/global.env >> $GITHUB_ENV
+        cat .temp-platform-core/platform-env/global.env >> $GITHUB_ENV
+        rm -rf .temp-platform-core
