@@ -18,6 +18,24 @@ The action follows **major-tag aliasing**: a floating `v1` tag always points to 
 
 ### Releasing a new version
 
+From the repo root, run:
+
+```bash
+just release patch   # v1.0.0 → v1.0.1
+just release minor   # v1.0.1 → v1.1.0
+just release major   # v1.1.0 → v2.0.0
+```
+
+The recipe automatically:
+1. Finds the latest `vX.Y.Z` tag
+2. Bumps the requested component
+3. Creates the new semver tag
+4. Moves the major floating alias (`v1`, `v2`, …)
+5. Pushes both tags to `origin`
+
+<details>
+<summary>Manual steps (for reference)</summary>
+
 ```bash
 # 1. Create the exact version tag
 git tag v1.2.0
@@ -29,20 +47,18 @@ git tag -f v1
 git push origin v1.2.0 v1 --force
 ```
 
+</details>
+
 ### Example: first release
 
 ```bash
-git tag v1.0.0
-git tag v1
-git push origin v1.0.0 v1
+just release minor   # → v1.0.0
 ```
 
 ### Example: subsequent release
 
 ```bash
-git tag v1.1.0
-git tag -f v1
-git push origin v1.1.0 v1 --force
+just release minor   # v1.0.0 → v1.1.0
 ```
 
 > **Why `--force`?** Git does not allow moving an existing tag without `-f` locally and `--force` on push. This is safe because `v1` is a well-known floating alias, not an immutable release.
