@@ -5,9 +5,9 @@
 ```mermaid
 graph LR
     subgraph Application Pods
-        S1[Profile<br/>+ Dapr Sidecar]
-        S2[Mentor<br/>+ Dapr Sidecar]
-        S3[Task<br/>+ Dapr Sidecar]
+        S1[Profile]
+        S2[Mentor]
+        S3[Task]
         S4[Identity UI]
     end
 
@@ -26,9 +26,9 @@ graph LR
         Pyro[Pyroscope<br/>Continuous Profiling]
     end
 
-    S1 -->|Zipkin traces| OTel
-    S2 -->|Zipkin traces| OTel
-    S3 -->|Zipkin traces| OTel
+    S1 -->|OTLP traces| OTel
+    S2 -->|OTLP traces| OTel
+    S3 -->|OTLP traces| OTel
     S1 -->|OTLP metrics| OTel
     S2 -->|OTLP metrics| OTel
     S3 -->|OTLP metrics| OTel
@@ -67,16 +67,13 @@ graph LR
 ```mermaid
 sequenceDiagram
     participant UI as UI Web
-    participant DS as Dapr Sidecar
     participant Svc as Service
     participant OTel as OTel Collector
     participant Tempo as Tempo
 
-    UI->>DS: HTTP request (trace context)
-    DS->>Svc: Forward + inject span
-    DS->>OTel: Zipkin span (port 9411)
-    Svc->>DS: Response
-    DS->>OTel: Zipkin span (response)
+    UI->>Svc: HTTP request (trace context)
+    Svc->>OTel: OTLP spans (port 4317)
+    Svc->>UI: Response
     OTel->>Tempo: OTLP batch export
 ```
 
@@ -84,7 +81,7 @@ sequenceDiagram
 
 | Source | Protocol | Destination |
 |--------|----------|-------------|
-| Dapr sidecars | OTLP/gRPC | OTel Collector |
+| Go services (OTel SDK) | OTLP/gRPC | OTel Collector |
 | Go services | Prometheus endpoint | OTel Collector (scrape) |
 | OTel Collector | OTLP/gRPC | Mimir |
 
@@ -107,8 +104,8 @@ The collector acts as a **smart gateway** with k8sattributes processor for metad
 
 ```
 Receivers:
-  - zipkin (port 9411)     ← Dapr traces
-  - otlp (gRPC port 4317)  ← Metrics + Logs
+  - zipkin (port 9411)     ← Legacy Zipkin traces
+  - otlp (gRPC port 4317)  ← Metrics + Logs + Traces
   - filelog                 ← Container stdout
 
 Processors:
@@ -119,27 +116,14 @@ Exporters:
   - otlp → Grafana Alloy → Loki/Tempo/Mimir
 ```
 
-## Dapr Telemetry Configuration
+## Application Tracing Configuration
 
-```yaml
-# Dapr Configuration (applied via mathtrail-infra)
-apiVersion: dapr.io/v1alpha1
-kind: Configuration
-metadata:
-  name: mathtrail-config
-spec:
-  tracing:
-    samplingRate: "1"
-    zipkin:
-      endpointAddress: "http://otel-collector.monitoring.svc.cluster.local:9411/api/v2/spans"
-  metric:
-    enabled: true
-```
+Services export traces via the OTel SDK to the OTel Collector. The Zipkin receiver is
+retained for backward compatibility.
 
 ## Namespace Layout
 
 | Namespace | Components |
 |-----------|-----------|
-| `mathtrail` | All application services + Dapr sidecars |
+| `mathtrail` | All application services |
 | `monitoring` | OTel Collector, Grafana, Loki, Tempo, Mimir, Pyroscope |
-| `dapr-system` | Dapr control plane (operator, sentry, placement) |

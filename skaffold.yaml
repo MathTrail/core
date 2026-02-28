@@ -20,6 +20,7 @@ metadata:
 requires:
   - configs:
       - infra
+  - configs:
       - infra-local
       - infra-observability
       - infra-testing

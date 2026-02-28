@@ -161,19 +161,14 @@ kubectl get svc mathtrail-mentor
 
 ### From mathtrail-infrastructure DevContainer
 
-Deploy Dapr and other infrastructure:
+Deploy infrastructure:
 
 ```bash
 # Inside DevContainer
 cd mathtrail-infrastructure
 
-# Deploy Dapr
+# Deploy infrastructure
 just deploy
-
-# Or manually
-helm upgrade --install dapr ./helm/external/dapr/dapr-1.16.1.tgz \
-    --namespace dapr-system \
-    --create-namespace
 ```
 
 ### Using Local Registry
@@ -239,7 +234,7 @@ just kubeconfig
 kubectl get all
 
 # Get resources in a namespace
-kubectl get pods -n dapr-system
+kubectl get pods -n vault
 
 # Describe a resource
 kubectl describe pod <pod-name>
@@ -422,7 +417,6 @@ If deployments fail with image pull errors:
 - [K3s Documentation](https://docs.k3s.io/)
 - [Kubernetes Command Reference](https://kubernetes.io/docs/reference/kubectl/)
 - [Helm Documentation](https://helm.sh/docs/)
-- [Dapr Documentation](https://docs.dapr.io/)
 
 ## Support
 

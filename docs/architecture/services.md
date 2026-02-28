@@ -1,8 +1,8 @@
-# Microservices & Dapr Interaction
+# Microservices Interaction
 
 ## Service Communication Map
 
-All inter-service communication goes through Dapr sidecars — services never call each other directly.
+Services communicate via HTTP invocation and Kafka pub/sub.
 
 ```mermaid
 graph LR
@@ -42,12 +42,12 @@ graph LR
     ChatGPT -->|auth| OK
     OK -->|validated| KR
 
-    UI -->|Dapr invoke| Task
-    UI -->|Dapr invoke| Validator
-    ChatGPT -->|Dapr invoke| Task
+    UI -->|HTTP| Task
+    UI -->|HTTP| Validator
+    ChatGPT -->|HTTP| Task
 
-    Mentor -->|Dapr invoke| Profile
-    Task -->|Dapr invoke| LLM
+    Mentor -->|HTTP| Profile
+    Task -->|HTTP| LLM
 
     KR -->|webhook| Profile
 
@@ -65,14 +65,14 @@ graph LR
     ESO -.->|K8s Secrets| Profile
     ESO -.->|K8s Secrets| Task
 
-    classDef dapr fill:#5b21b6,stroke:#7c3aed,color:#fff
+    classDef svc fill:#5b21b6,stroke:#7c3aed,color:#fff
     classDef storage fill:#0e7490,stroke:#06b6d4,color:#fff
     classDef ory fill:#b45309,stroke:#f59e0b,color:#fff
     classDef ui fill:#047857,stroke:#10b981,color:#fff
     classDef ai fill:#be185d,stroke:#ec4899,color:#fff
     classDef secret fill:#4338ca,stroke:#818cf8,color:#fff
 
-    class Mentor,Profile,Task dapr
+    class Mentor,Profile,Task svc
     class PG,Redis,Kafka storage
     class OK,KR ory
     class UI,ChatGPT ui
@@ -80,9 +80,9 @@ graph LR
     class Vault,ESO secret
 ```
 
-## Dapr Communication Patterns
+## Communication Patterns
 
-### Service Invocation (Synchronous)
+### Service Invocation (Synchronous HTTP)
 
 | Caller | Target | Method | Purpose |
 |--------|--------|--------|---------|
@@ -99,21 +99,51 @@ graph LR
 | Mentor | `mentor.strategy.updated` | Task | Pass generation parameters |
 | Task | `task.attempt.completed` | Profile, Mentor | Update skills/XP, re-evaluate strategy |
 
-## Secrets Flow (Vault + ESO)
+## Secrets Flow (Bank-Vaults + ESO)
+
+Vault is managed by the **Bank-Vaults Operator** via a declarative Custom Resource (`kind: Vault`).
+The operator handles initialization, auto-unseal (keys stored in K8s Secret), and configuration
+reconciliation. All Vault settings (auth methods, policies, secrets engines, database roles) are
+defined in `infra/manifests/vault-instance.yaml`.
+
+Two types of secrets are delivered to services via ESO:
+
+### Dynamic Database Credentials (Database Secrets Engine)
 
 ```mermaid
 graph LR
-    V[Vault] -->|K8s Auth| ESO[External Secrets Operator]
-    ESO -->|ExternalSecret CRD| S1[K8s Secret:<br/>profile-secrets]
-    ESO -->|ExternalSecret CRD| S2[K8s Secret:<br/>task-secrets]
-    ESO -->|ExternalSecret CRD| S3[K8s Secret:<br/>identity-secrets]
+    V[Vault<br/>Bank-Vaults CR] -->|K8s Auth| ESO[External Secrets<br/>Operator]
+    ESO -->|ClusterSecretStore:<br/>vault-backend| DB[Database Engine]
+    DB -->|dynamic lease| M[K8s Secret:<br/>mentor-api-db-dynamic-creds]
+    DB -->|dynamic lease| P[K8s Secret:<br/>profile-api-db-dynamic-creds]
 
-    S1 -->|env mount| Profile[Profile Pod]
-    S2 -->|env mount| Task[Task Pod]
-    S3 -->|env mount| Identity[Kratos Pod]
+    M -->|connectionString| Mentor[Mentor Pod]
+    P -->|connectionString| Profile[Profile Pod]
 
     classDef vault fill:#4338ca,stroke:#818cf8,color:#fff
-    class V,ESO vault
+    class V,ESO,DB vault
+```
+
+| Service | Vault Role | Database | TTL | Refresh |
+|---------|-----------|----------|-----|---------|
+| mentor-api | `mentor-api-role` | mentor | 1h | 55m |
+| profile-api | `profile-api-role` | profile | 1h | 55m |
+| task-api | `task-api-role` | mathtrail | 1h | 55m |
+
+### Static KV Secrets (KV v2 Engine)
+
+```mermaid
+graph LR
+    V[Vault<br/>Bank-Vaults CR] -->|K8s Auth| ESO[External Secrets<br/>Operator]
+    ESO -->|ClusterSecretStore:<br/>vault-kv-backend| KV[KV v2 Engine]
+    KV --> S1[K8s Secret:<br/>profile-secrets]
+    KV --> S2[K8s Secret:<br/>identity-secrets]
+
+    S1 -->|env mount| Profile[Profile Pod]
+    S2 -->|env mount| Identity[Kratos Pod]
+
+    classDef vault fill:#4338ca,stroke:#818cf8,color:#fff
+    class V,ESO,KV vault
 ```
 
 **Vault Path Convention**: `secret/data/{env}/{service}/{key}`
