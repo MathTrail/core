@@ -10,7 +10,7 @@ See [workspace setup](docs/workspace.md) for getting started.
 | Group | Repository | Description |
 |-------|-----------|-------------|
 | **Foundation** | [mathtrail](.) | Workspace hub: Skaffold orchestrator, docs, diagrams |
-| | [mathtrail-service-template](../mathtrail-service-template) | Golden template for new microservices (infra/, Dapr, CI/CD) |
+| | [mathtrail-service-template](../mathtrail-service-template) | Golden template for new microservices (infra/, CI/CD) |
 | **Business** | [mathtrail-identity](../mathtrail-identity) | Authentication & authorization (Ory Kratos/Hydra/Keto/Oathkeeper) |
 | | [mathtrail-profile](../mathtrail-profile) | Student knowledge graph, progress history, XP tracking |
 | | [mathtrail-mentor](../mathtrail-mentor) | AI strategist — learning strategy, skill gap analysis |
@@ -19,7 +19,7 @@ See [workspace setup](docs/workspace.md) for getting started.
 | | [mathtrail-solution-validator](../mathtrail-solution-validator) | Solution checking engine (symbolic math, logic) |
 | **Interfaces** | [mathtrail-ui-web](../mathtrail-ui-web) | Student web app (React/Vite/Tailwind/shadcn) |
 | | [mathtrail-ui-chatgpt](../mathtrail-ui-chatgpt) | ChatGPT plugin / custom GPTs integration |
-| **Infrastructure** | [mathtrail-infra](../mathtrail-infra) | Global manifests: Dapr, Vault, ArgoCD, Ingress |
+| **Infrastructure** | [mathtrail-infra](../mathtrail-infra) | Global manifests: Vault, ESO, Telepresence |
 | | [mathtrail-charts](../mathtrail-charts) | Centralized Helm chart repository (GitHub Pages) |
 | | [mathtrail-gitops](../mathtrail-gitops) | Centralized GitOps: ArgoCD App-of-Apps, releases, environments |
 | | [mathtrail-infra-local](../mathtrail-infra-local) | Local dev infra: PostgreSQL, Redis, Kafka |
@@ -31,7 +31,7 @@ See [workspace setup](docs/workspace.md) for getting started.
 
 | Diagram | Description |
 |---------|-------------|
-| [Microservices & Dapr Interaction](docs/architecture/services.md) | Service communication map, Dapr invocation & pub/sub topics, secrets flow |
+| [Microservices Interaction](docs/architecture/services.md) | Service communication map, HTTP invocation & Kafka pub/sub topics, secrets flow |
 | [Identity & Auth Flow](docs/architecture/identity.md) | Ory stack architecture, registration/login/authorization sequence diagrams |
 | [GitOps & Deployment](docs/architecture/deployment.md) | Code-to-runtime pipeline, App-of-Apps pattern, three deployment scenarios |
 | [Observability Stack](docs/architecture/observability.md) | Telemetry pipeline, OTel Collector config, Grafana LGTM + Pyroscope |

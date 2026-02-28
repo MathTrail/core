@@ -52,7 +52,6 @@ The following tools are automatically available when you open this workspace in 
 
 - **kubectl** — Kubernetes command-line tool
 - **Helm** — Kubernetes package manager
-- **Dapr CLI** — Distributed Application Runtime CLI
 - **Just** — Task runner for common commands
 
 ## Getting Started with MathTrail
@@ -106,7 +105,7 @@ For detailed setup instructions and troubleshooting, see [K3d Setup Guide](k3d-s
 
 ### 4. Deploy Infrastructure
 
-Deploy Dapr and other infrastructure components from the infrastructure DevContainer or using Helm directly.
+Deploy infrastructure components from the infrastructure DevContainer or using Helm directly.
 
 ## Development Environment
 
@@ -120,7 +119,6 @@ A DevContainer is available for each repository:
 
 **Inside the DevContainer, you automatically have:**
 - kubectl and Helm for managing the Kubernetes cluster
-- Dapr CLI for testing Dapr components
 - Just task runner for common commands
 - Docker CLI for working with container images
 - **Automatic access to K3d cluster** (via kubeconfig mount)

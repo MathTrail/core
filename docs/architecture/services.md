@@ -1,8 +1,8 @@
-# Microservices & Dapr Interaction
+# Microservices Interaction
 
 ## Service Communication Map
 
-All inter-service communication goes through Dapr sidecars — services never call each other directly.
+Services communicate via HTTP invocation and Kafka pub/sub.
 
 ```mermaid
 graph LR
@@ -42,12 +42,12 @@ graph LR
     ChatGPT -->|auth| OK
     OK -->|validated| KR
 
-    UI -->|Dapr invoke| Task
-    UI -->|Dapr invoke| Validator
-    ChatGPT -->|Dapr invoke| Task
+    UI -->|HTTP| Task
+    UI -->|HTTP| Validator
+    ChatGPT -->|HTTP| Task
 
-    Mentor -->|Dapr invoke| Profile
-    Task -->|Dapr invoke| LLM
+    Mentor -->|HTTP| Profile
+    Task -->|HTTP| LLM
 
     KR -->|webhook| Profile
 
@@ -65,14 +65,14 @@ graph LR
     ESO -.->|K8s Secrets| Profile
     ESO -.->|K8s Secrets| Task
 
-    classDef dapr fill:#5b21b6,stroke:#7c3aed,color:#fff
+    classDef svc fill:#5b21b6,stroke:#7c3aed,color:#fff
     classDef storage fill:#0e7490,stroke:#06b6d4,color:#fff
     classDef ory fill:#b45309,stroke:#f59e0b,color:#fff
     classDef ui fill:#047857,stroke:#10b981,color:#fff
     classDef ai fill:#be185d,stroke:#ec4899,color:#fff
     classDef secret fill:#4338ca,stroke:#818cf8,color:#fff
 
-    class Mentor,Profile,Task dapr
+    class Mentor,Profile,Task svc
     class PG,Redis,Kafka storage
     class OK,KR ory
     class UI,ChatGPT ui
@@ -80,9 +80,9 @@ graph LR
     class Vault,ESO secret
 ```
 
-## Dapr Communication Patterns
+## Communication Patterns
 
-### Service Invocation (Synchronous)
+### Service Invocation (Synchronous HTTP)
 
 | Caller | Target | Method | Purpose |
 |--------|--------|--------|---------|

@@ -20,7 +20,7 @@ graph TD
         GO[mathtrail-gitops]
         RL[releases/<br/>platform-vX.yaml]
         SA[apps/services/<br/>profile.yaml, mentor.yaml, ...]
-        IA[apps/infrastructure/<br/>dapr.yaml, vault.yaml, ...]
+        IA[apps/infrastructure/<br/>vault.yaml, eso.yaml, ...]
     end
 
     subgraph ArgoCD
@@ -123,7 +123,6 @@ graph TD
     end
 
     subgraph Infrastructure
-        D[Dapr]
         VLT[Vault]
         E[ESO]
         SC[StorageClass]
@@ -137,7 +136,7 @@ graph TD
     ROOT --> V
     ROOT --> UW
     ROOT --> UC
-    ROOT --> D
+    ROOT --> VLT
     ROOT --> VLT
     ROOT --> E
     ROOT --> SC

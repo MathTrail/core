@@ -78,7 +78,7 @@ Example: `just deploy identity`, `just deploy all-infra`.
 | | `mathtrail-solution-validator` | Solution checking (SymPy) |
 | **Interfaces** | `mathtrail-ui-web` | Student web app (React / Vite / Tailwind / shadcn) |
 | | `mathtrail-ui-chatgpt` | ChatGPT plugin / custom GPTs |
-| **Infrastructure** | `mathtrail-infra` | Global manifests: Dapr, Vault, ArgoCD, Ingress |
+| **Infrastructure** | `mathtrail-infra` | Global manifests: Vault, ESO, Telepresence |
 | | `mathtrail-charts` | Centralized Helm chart repo (GitHub Pages) |
 | | `mathtrail-gitops` | ArgoCD App-of-Apps, releases, environments |
 | | `mathtrail-infra-local` | Local dev: PostgreSQL, Redis, Kafka (Strimzi) |
@@ -91,11 +91,11 @@ Example: `just deploy identity`, `just deploy all-infra`.
 
 ## Communication Map
 
-All inter-service communication goes through **Dapr sidecars** — services never call each other directly.
+Services communicate via HTTP invocation and Kafka pub/sub.
 
 Key flows:
-- **Mentor → Profile** (Dapr invoke): read student data for strategy
-- **Task → LLM Taskgen** (Dapr invoke): generate math problem
+- **Mentor → Profile** (HTTP): read student data for strategy
+- **Task → LLM Taskgen** (HTTP): generate math problem
 - **Mentor → Kafka** (`mentor.strategy.updated`): Task subscribes
 - **Task → Kafka** (`task.attempt.completed`): Profile & Mentor subscribe
 - **Kratos webhook → Profile**: auto-create student profile on registration
