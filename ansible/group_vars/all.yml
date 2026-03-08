@@ -1,0 +1,3 @@
+---
+# Disk where Docker images are stored
+docker_data_dir: /media/data

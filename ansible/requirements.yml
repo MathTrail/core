@@ -1,0 +1,11 @@
+---
+collections:
+  - name: mathtrail.infra
+    type: git
+    source: https://github.com/MathTrail/infra.git
+    version: main
+
+  - name: mathtrail.k3s
+    type: git
+    source: https://github.com/MathTrail/infra-local-k3s.git
+    version: main
