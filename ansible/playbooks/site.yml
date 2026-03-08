@@ -1,0 +1,15 @@
+---
+- name: Base infrastructure
+  hosts: localhost
+  gather_facts: false
+  become: true
+  roles:
+    - role: mathtrail.infra.docker
+    - role: mathtrail.infra.hello
+
+- name: Local K3s infrastructure
+  hosts: localhost
+  gather_facts: false
+  become: true
+  roles:
+    - role: mathtrail.k3s.hello

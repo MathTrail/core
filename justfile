@@ -1,11 +1,58 @@
 # MathTrail Root Orchestrator
 
 set shell := ["bash", "-c"]
+
+ansible_min := "2.20.3"
 set dotenv-load
 set dotenv-path := "platform-env/global.env"
 set export
 
 NAMESPACE := env_var("NAMESPACE")
+
+# List available recipes
+[private]
+default:
+    @just --list
+
+# ── Local Machine Provisioning ───────────────────────────────
+
+# Provision local machine: check Ansible, install deps, run playbook
+provision: _check-ansible _install-ansible-deps _run-playbook
+
+[private]
+_check-ansible:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    if ! command -v pipx &>/dev/null; then
+        echo "pipx not found. Installing via apt..."
+        sudo apt-get install -y pipx
+        pipx ensurepath
+    fi
+    if ! command -v ansible &>/dev/null; then
+        echo "Ansible not found. Installing via pipx..."
+        pipx install "ansible-core>={{ ansible_min }}"
+    else
+        installed=$(ansible --version | head -1 | grep -oP '[\d]+\.[\d]+\.[\d]+')
+        required="{{ ansible_min }}"
+        if [ "$(printf '%s\n' "$required" "$installed" | sort -V | head -1)" != "$required" ]; then
+            echo "Ansible $installed is outdated (need >=$required). Upgrading..."
+            pipx upgrade ansible-core
+        else
+            echo "Ansible $installed ✓"
+        fi
+    fi
+
+[private]
+_install-ansible-deps:
+    ansible-galaxy collection install \
+        -r ansible/requirements.yml \
+        --force
+
+[private]
+_run-playbook:
+    ansible-playbook \
+        -i ansible/inventory/local.yml \
+        ansible/playbooks/site.yml
 
 # ── Full Stack (no profile = deploy all) ─────────────────────
 

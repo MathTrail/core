@@ -5,6 +5,35 @@ AI platform that helps students learn to solve math olympiad problems through pe
 See [project overview](docs/project-overview.md) for architecture details.
 See [workspace setup](docs/workspace.md) for getting started.
 
+## Local Machine Setup
+
+Provisions the local machine: installs Docker and configures it to store images on the secondary disk.
+
+### 1. Install `just`
+
+```bash
+curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | bash -s -- --to ~/.local/bin
+```
+
+Make sure `~/.local/bin` is in your `PATH`:
+
+```bash
+echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc && source ~/.bashrc
+```
+
+### 2. Run provisioning
+
+```bash
+just provision
+```
+
+This will:
+1. Check that Ansible >= 2.17.0 is installed (installs via `pip3` if not)
+2. Pull Ansible roles from `infra` and `infra-local-k3s` via `ansible-galaxy`
+3. Run the playbook — installs Docker and sets image storage to `/media/data`
+
+To use a different disk, edit [`ansible/group_vars/all.yml`](ansible/group_vars/all.yml) before running.
+
 ## Project Structure
 
 | Group | Repository | Description |
