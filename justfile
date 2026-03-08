@@ -52,6 +52,7 @@ _install-ansible-deps:
 _run-playbook:
     ansible-playbook \
         -i ansible/inventory/local.yml \
+        --ask-become-pass \
         ansible/playbooks/site.yml
 
 # ── Full Stack (no profile = deploy all) ─────────────────────
