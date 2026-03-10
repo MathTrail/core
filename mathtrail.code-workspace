@@ -8,7 +8,7 @@
     { "name": "Solution Validator", "path": "../solution-validator" },
     { "name": "UI Web", "path": "../ui-web" },
     { "name": "UI ChatGPT", "path": "../ui-chatgpt" },
-    { "name": "Identity API", "path": "../identity-api" },
+    { "name": "Identity", "path": "../identity" },
     { "name": "Infra", "path": "../infra" },
     { "name": "Infra Local", "path": "../infra-local" },
     { "name": "Infra Local K3s", "path": "../infra-local-k3s" },
