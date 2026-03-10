@@ -21,9 +21,6 @@ requires:
   - configs:
       - infra
   - configs:
-      - infra-local
-      - infra-observability
-      - infra-testing
       - infra-chaos
 
 ---
@@ -48,33 +45,6 @@ metadata:
 
 requires:
   - path: ../mathtrail-infra
-
----
-apiVersion: skaffold/v4beta13
-kind: Config
-metadata:
-  name: infra-local
-
-requires:
-  - path: ../mathtrail-infra-local
-
----
-apiVersion: skaffold/v4beta13
-kind: Config
-metadata:
-  name: infra-observability
-
-requires:
-  - path: ../mathtrail-infra-observability
-
----
-apiVersion: skaffold/v4beta13
-kind: Config
-metadata:
-  name: infra-testing
-
-requires:
-  - path: ../mathtrail-infra-testing
 
 ---
 apiVersion: skaffold/v4beta13
