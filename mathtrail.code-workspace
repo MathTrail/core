@@ -1,6 +1,7 @@
 {
   "folders": [
     { "name": "Core", "path": "." },
+    { "name": "Contracts", "path": "../contracts" },
     { "name": "Mentor API", "path": "../mentor-api" },
     { "name": "Profile API", "path": "../profile-api" },
     { "name": "Task API", "path": "../task-api" },
