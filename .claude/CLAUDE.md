@@ -81,7 +81,7 @@ Example: `just deploy identity`, `just deploy all-infra`.
 | **Infrastructure** | `mathtrail-infra` | Global manifests: Vault, ESO, Telepresence |
 | | `mathtrail-charts` | Centralized Helm chart repo (GitHub Pages) |
 | | `mathtrail-gitops` | ArgoCD App-of-Apps, releases, environments |
-| | `mathtrail-infra-local` | Local dev: PostgreSQL, Redis, Kafka (Strimzi) |
+| | `mathtrail-infra-local` | Local dev: PostgreSQL, Redis |
 | | `mathtrail-infra-local-k3s` | K3d cluster creation and kubeconfig |
 | | `mathtrail-infra-observability` | Grafana LGTM, OpenTelemetry, Pyroscope |
 | | `mathtrail-infra-testing` | E2E & load testing (k6 operator) |
